@@ -10,31 +10,29 @@ import java.util.Date;
 public class Blog {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private String Id;
+    private int Id;
     private String title;
     private String genre;
     private String content;
     private Date date;
-    private Writer writer;
-    private Comment comment;
+
+
 
     public Blog(){
         //default constructor
     }
-    public Blog(String id, String title, String genre, String content, Date date, Writer writer, Comment comment) {
+    public Blog(int id, String title, String genre, String content, Date date) {
         Id = id;
         this.title = title;
         this.genre = genre;
         this.content = content;
         this.date = date;
-        this.writer = writer;
-        this.comment = comment;
     }
-    public String getId() {
+    public int getId() {
         return Id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         Id = id;
     }
 
@@ -70,32 +68,15 @@ public class Blog {
         this.date = date;
     }
 
-    public Writer getWriter() {
-        return writer;
-    }
-
-    public void setWriter(Writer writer) {
-        this.writer = writer;
-    }
-
-    public Comment getComment() {
-        return comment;
-    }
-
-    public void setComment(Comment comment) {
-        this.comment = comment;
-    }
 
     @Override
     public String toString() {
         return "Blog{" +
-                "Id='" + Id + '\'' +
-                ", title='" + title + '\'' +
-                ", genre='" + genre + '\'' +
-                ", content='" + content + '\'' +
+                "Id=" + Id +
+                ", title=" + title +
+                ", genre=" + genre +
+                ", content=" + content +
                 ", date=" + date +
-                ", writer=" + writer +
-                ", comment=" + comment +
                 '}';
     }
 }

@@ -1,9 +1,9 @@
 package com.kipcode.blogapp.repository;
 import com.kipcode.blogapp.model.Blog;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.RepositoryDefinition;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public interface BlogRepository extends CrudRepository<Blog, Integer> {
+import org.springframework.stereotype.Service;
+
+
+public interface BlogRepository extends JpaRepository<Blog, Integer> {
 }
