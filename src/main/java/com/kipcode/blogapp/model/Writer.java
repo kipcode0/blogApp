@@ -1,27 +1,29 @@
 package com.kipcode.blogapp.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Writer {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private String Id;
+    private int Id;
     private String firstName;
     private String lastName;
     private String email;
+    @OneToMany(targetEntity = Blog.class, cascade = CascadeType.ALL)
+    @JoinColumn(name="writer_detail_id", referencedColumnName = "Id")
+    List<Blog> blogs;
+
 
     public Writer() {
     }
 
-    public String getId() {
+    public int getId() {
         return Id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         Id = id;
     }
 
@@ -49,6 +51,14 @@ public class Writer {
         this.email = email;
     }
 
+    public List<Blog> getBlogs() {
+        return blogs;
+    }
+
+    public void setBlogs(List<Blog> blogs) {
+        this.blogs = blogs;
+    }
+
     @Override
     public String toString() {
         return "Writer{" +
@@ -56,6 +66,7 @@ public class Writer {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", blogs=" + blogs +
                 '}';
     }
 }
