@@ -8,6 +8,8 @@ import com.kipcode.blogapp.service.BlogService;
 import com.kipcode.jpa.dto.WriterRequest;
 import com.kipcode.jpa.dto.blogRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,12 +23,17 @@ public class BlogController {
     @Autowired
     private WriterRepository writerRepository;
 
-    @PostMapping("/post-blog")
-    public Writer getWriter(@RequestBody WriterRequest request){
-       return writerRepository.save(request.getWriter());
+    @PostMapping("/create-blog")
+    public Writer createBlog(@RequestBody WriterRequest request){
+        return writerRepository.save(request.getWriter());
     }
 
-    @GetMapping("/find-all-blogs")
+    @GetMapping("/find-writers")
+    public List<Writer> findWriters(){
+        return writerRepository.findAll();
+    }
+
+    @GetMapping("/find-blogs")
     public List<Blog> findAllBlogs(){
         return blogRepository.findAll();
     }
