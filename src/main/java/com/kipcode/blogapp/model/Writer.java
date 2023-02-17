@@ -1,22 +1,42 @@
 package com.kipcode.blogapp.model;
 
+import net.minidev.json.annotate.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name="writer")
 public class Writer {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int Id;
-    private String firstName;
-    private String lastName;
-    private String email;
-    @OneToMany(targetEntity = Blog.class, cascade = CascadeType.ALL)
-    @JoinColumn(name="writer_detail_id", referencedColumnName = "Id")
-    List<Blog> blogs;
 
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name="last_name")
+    private String lastName;
+
+    @Column(name="email")
+    private String email;
+
+    @OneToMany(targetEntity = Blog.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "writer_detail_id", referencedColumnName ="Id")
+    @JsonIgnore
+    private List<Blog> blogs;
 
     public Writer() {
+    }
+
+    public Writer(int id, String firstName, String lastName, String email, List<Blog> blogs) {
+        Id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.blogs = blogs;
     }
 
     public int getId() {
@@ -62,7 +82,7 @@ public class Writer {
     @Override
     public String toString() {
         return "Writer{" +
-                "Id='" + Id + '\'' +
+                "Id=" + Id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +

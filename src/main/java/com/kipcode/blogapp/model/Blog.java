@@ -1,26 +1,37 @@
 package com.kipcode.blogapp.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import net.minidev.json.annotate.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name="blog")
 public class Blog {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int Id;
+
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "genre")
     private String genre;
+
+    @Lob
+    @Column(name = "content")
     private String content;
+
+    @Column(name = "date")
     private Date date;
 
 
-
-    public Blog(){
+    public Blog() {
         //default constructor
     }
+
     public Blog(int id, String title, String genre, String content, Date date) {
         Id = id;
         this.title = title;
@@ -28,6 +39,7 @@ public class Blog {
         this.content = content;
         this.date = date;
     }
+
     public int getId() {
         return Id;
     }
@@ -68,14 +80,13 @@ public class Blog {
         this.date = date;
     }
 
-
     @Override
     public String toString() {
         return "Blog{" +
                 "Id=" + Id +
-                ", title=" + title +
-                ", genre=" + genre +
-                ", content=" + content +
+                ", title='" + title + '\'' +
+                ", genre='" + genre + '\'' +
+                ", content='" + content + '\'' +
                 ", date=" + date +
                 '}';
     }
