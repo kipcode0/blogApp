@@ -1,5 +1,7 @@
 package com.kipcode.blogapp.controller;
 
+import com.kipcode.blogapp.exceptions.BlogErrorResponse;
+import com.kipcode.blogapp.exceptions.ResourceNotFoundException;
 import com.kipcode.blogapp.model.Blog;
 import com.kipcode.blogapp.model.Writer;
 import com.kipcode.blogapp.repository.BlogRepository;
@@ -37,4 +39,19 @@ public class BlogController {
     public List<Blog> findAllBlogs(){
         return blogRepository.findAll();
     }
+
+    @GetMapping("/find-blogs/{id}")
+    public ResponseEntity<Blog> getBlogById(@PathVariable int id){
+        Blog blog = blogRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Not found Blog with id = " + id));
+        return new ResponseEntity<>(blog, HttpStatus.OK);
+    }
+    @ExceptionHandler
+    public ResponseEntity<BlogErrorResponse> handleException(ResourceNotFoundException exc){
+        BlogErrorResponse error = new BlogErrorResponse();
+        error.setStatus(HttpStatus.NOT_FOUND.value());
+        error.setMessage(exc.getMessage());
+        error.setTimeStamp(System.currentTimeMillis());
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
 }
