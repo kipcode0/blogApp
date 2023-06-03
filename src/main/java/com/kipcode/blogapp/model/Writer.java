@@ -14,17 +14,20 @@ public class Writer {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int Id;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name",nullable = false)
     private String firstName;
 
-    @Column(name="last_name")
+    @Column(name="last_name", nullable = false)
     private String lastName;
 
-    @Column(name="email")
+    @Column(name= "password",nullable = false)
+    private String password;
+
+    @Column(name="email", nullable = false)
     private String email;
 
     @OneToMany(targetEntity = Blog.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "writer_detail_id", referencedColumnName ="Id")
+    @JoinColumn(name = "writer_detail_id", referencedColumnName ="Id", nullable = true)
     @JsonIgnore
     private List<Blog> blogs;
 

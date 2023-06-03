@@ -11,4 +11,9 @@ import java.util.List;
 
 public interface WriterRepository extends JpaRepository<Writer, Integer> {
   //return blogs from a writer
+   /*
+   * @Query("SELECT m FROM Movie m WHERE m.title LIKE %:title%")
+     List<Movie> searchByTitleLike(@Param("title") String title);
+   * */
+
 }

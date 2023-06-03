@@ -16,7 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin
 @RestController
 @RequestMapping(path="/blog")
 public class BlogController {
@@ -40,11 +40,27 @@ public class BlogController {
         return blogRepository.findAll();
     }
 
+    /*
     @GetMapping("/find-blogs/{id}")
     public ResponseEntity<Blog> getBlogById(@PathVariable int id){
         Blog blog = blogRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Not found Blog with id = " + id));
         return new ResponseEntity<>(blog, HttpStatus.OK);
     }
+     */
+
+    @GetMapping("/find-blogs/{title}")
+    public ResponseEntity<Blog> getBlogByTitle(@PathVariable String title){
+        Blog blog = blogRepository.findByTitleIgnoreCase(title).orElseThrow(()->new ResourceNotFoundException("Did not find Blog with title " + title));
+        return new ResponseEntity<>(blog, HttpStatus.NOT_FOUND);
+    }
+
+    /*
+    @GetMapping("/find-blogs/writers/{writer}")
+    public ResponseEntity<Blog> getBlogByTitle(@PathVariable String writer){
+        Blog blog = blogRepository.searchByWriter(writer).orElseThrow(()->new ResourceNotFoundException("Did not find Blog by " + writer));
+        return new ResponseEntity<>(blog, HttpStatus.NOT_FOUND);
+    }
+     */
     @ExceptionHandler
     public ResponseEntity<BlogErrorResponse> handleException(ResourceNotFoundException exc){
         BlogErrorResponse error = new BlogErrorResponse();
