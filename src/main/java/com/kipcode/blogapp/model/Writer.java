@@ -20,7 +20,7 @@ public class Writer {
     @Column(name="last_name", nullable = false)
     private String lastName;
 
-    @Column(name= "password",nullable = false)
+    @Column(name= "password", nullable = false)
     private String password;
 
     @Column(name="email", nullable = false)
@@ -34,11 +34,12 @@ public class Writer {
     public Writer() {
     }
 
-    public Writer(int id, String firstName, String lastName, String email, List<Blog> blogs) {
+    public Writer(int id, String firstName, String lastName, String password,String email, List<Blog> blogs) {
         Id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.password = password;
         this.blogs = blogs;
     }
 
@@ -80,6 +81,14 @@ public class Writer {
 
     public void setBlogs(List<Blog> blogs) {
         this.blogs = blogs;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

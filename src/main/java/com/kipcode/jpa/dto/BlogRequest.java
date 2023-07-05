@@ -2,13 +2,13 @@ package com.kipcode.jpa.dto;
 
 import com.kipcode.blogapp.model.Blog;
 
-public class blogRequest {
+public class BlogRequest {
     private Blog blog;
 
-    public blogRequest() {
+    public BlogRequest() {
     }
 
-    public blogRequest(Blog blog) {
+    public BlogRequest(Blog blog) {
         this.blog = blog;
     }
 

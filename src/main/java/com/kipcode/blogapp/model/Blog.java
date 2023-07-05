@@ -12,7 +12,7 @@ import java.util.Date;
 public class Blog {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int Id;
+    private int id;
 
     @Column(name = "title")
     private String title;
@@ -33,7 +33,7 @@ public class Blog {
     }
 
     public Blog(int id, String title, String genre, String content, Date date) {
-        Id = id;
+        this.id = id;
         this.title = title;
         this.genre = genre;
         this.content = content;
@@ -41,11 +41,11 @@ public class Blog {
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        id = id;
     }
 
     public String getTitle() {
@@ -83,7 +83,7 @@ public class Blog {
     @Override
     public String toString() {
         return "Blog{" +
-                "Id=" + Id +
+                "Id=" + id +
                 ", title='" + title + '\'' +
                 ", genre='" + genre + '\'' +
                 ", content='" + content + '\'' +
