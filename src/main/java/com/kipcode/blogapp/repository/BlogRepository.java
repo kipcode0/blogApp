@@ -10,9 +10,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 
-public interface BlogRepository extends JpaRepository<Blog, Integer> {
+public interface BlogRepository extends JpaRepository<Blog, Long> {
     Optional<Blog> findByTitleIgnoreCase(String title);
     /*
    * @Query("SELECT m FROM Movie m WHERE m.title LIKE %:title%")

@@ -1,4 +1,5 @@
 package com.kipcode.blogapp.controller;
+import com.kipcode.blogapp.repository.BlogRepository;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.kipcode.blogapp.exceptions.BlogErrorResponse;
 import com.kipcode.blogapp.exceptions.ResourceNotFoundException;
@@ -15,6 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 @CrossOrigin
 @RestController
 @RequestMapping(path="/blogs")
@@ -24,9 +28,18 @@ public class BlogController {
     @Autowired
     private WriterRepository writerRepository;
 
+    @Autowired
+    BlogRepository blogRepository;
     @PostMapping("/create-blog")
-    public Blog createBlog(@RequestBody BlogRequest request){
-        return blogServiceImpl.saveBlog(request.getBlog());
+    public ResponseEntity<Blog> createBlog(@RequestBody Blog blog){
+         //blogServiceImpl.saveBlog(blog);
+        try{
+            Blog newBlog = blogRepository.save(new Blog(blog.getTitle(),blog.getGenre(),blog.getContent(),blog.getDate()));
+            return new ResponseEntity<>(newBlog, HttpStatus.CREATED);
+        }catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @GetMapping("/find-writers")
@@ -42,19 +55,45 @@ public class BlogController {
      */
 
     @GetMapping("/find-blog/{id}")
-    public ResponseEntity<Blog> getBlogById(@PathVariable int id){
+    public ResponseEntity<Blog> getBlogById(@PathVariable Long id){
         Blog blog = blogServiceImpl.getBlogById(id);
         return new ResponseEntity<>(blog, HttpStatus.OK);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Blog> updateBlog(@RequestBody Blog blog){
-        //Blog blog = blogRequest.getBlog();
-        System.out.println(blog.toString() + "###############");
-        //System.out.println(blog.getId());
-        Blog blogUpdate = blogServiceImpl.updateBlog(blog);
-        return new ResponseEntity<>(blogUpdate, HttpStatus.OK);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Blog> updateBlog(@PathVariable("id") Long id, @RequestBody Blog blog){
+        Optional<Blog> blogData = blogRepository.findById(id);
+         if(blogData.isPresent()){
+             Blog updateBlog = blogData.get();
+             updateBlog.setTitle(blog.getTitle());
+             updateBlog.setContent(blog.getContent());
+             updateBlog.setGenre(blog.getGenre());
+             return new ResponseEntity<>(blogRepository.save(updateBlog), HttpStatus.OK);
+         }else{
+             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+         }
+
     }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Blog> deleteBlog(@PathVariable("id") Long id){
+        try{
+            blogRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @DeleteMapping("/all")
+    public ResponseEntity<HttpStatus> deleteAllTutorials() {
+        try {
+            blogRepository.deleteAll();
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
 
 /*
     @GetMapping("/find-blogs/{title}")

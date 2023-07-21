@@ -1,18 +1,18 @@
 package com.kipcode.blogapp.model;
 
-import net.minidev.json.annotate.JsonIgnore;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table(name="blog")
 public class Blog {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @Column(name = "id")
+    Long Id;
 
     @Column(name = "title")
     private String title;
@@ -32,20 +32,19 @@ public class Blog {
         //default constructor
     }
 
-    public Blog(int id, String title, String genre, String content, Date date) {
-        this.id = id;
+    public Blog(String title, String genre, String content, Date date) {
         this.title = title;
         this.genre = genre;
         this.content = content;
         this.date = date;
     }
 
-    public int getId() {
-        return id;
+    public Long getId() {
+        return Id;
     }
 
-    public void setId(int id) {
-        id = id;
+    public void setId(Long id) {
+        this.Id = id;
     }
 
     public String getTitle() {
@@ -83,7 +82,7 @@ public class Blog {
     @Override
     public String toString() {
         return "Blog{" +
-                "Id=" + id +
+                "Id=" + Id +
                 ", title='" + title + '\'' +
                 ", genre='" + genre + '\'' +
                 ", content='" + content + '\'' +

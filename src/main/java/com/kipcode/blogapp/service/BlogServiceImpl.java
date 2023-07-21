@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class BlogServiceImpl implements BlogService{
      @Autowired
@@ -20,7 +22,7 @@ public class BlogServiceImpl implements BlogService{
     }
 
     @Override
-    public Blog getBlogById(int id) {
+    public Blog getBlogById(Long id) {
         Blog blog = blogRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Not found Blog with id = " + id));
         return blog;
     }
@@ -34,4 +36,11 @@ public class BlogServiceImpl implements BlogService{
         existingBlog.setDate(blog.getDate());
         return blogRepository.save(existingBlog);
     }
+
+    @Override
+    public void deleteBlog(String id) {
+
+    }
+
+
 }
