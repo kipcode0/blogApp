@@ -47,12 +47,12 @@ public class BlogController {
         return writerRepository.findAll();
     }
 
-    /*
-    @GetMapping("/find-blogs")
+
+    @GetMapping("/all")
     public List<Blog> findAllBlogs(){
         return blogRepository.findAll();
     }
-     */
+
 
     @GetMapping("/find-blog/{id}")
     public ResponseEntity<Blog> getBlogById(@PathVariable Long id){

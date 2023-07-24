@@ -1,5 +1,6 @@
 package com.kipcode.blogapp.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -25,6 +26,7 @@ public class Blog {
     private String content;
 
     @Column(name = "date")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date date;
 
 
