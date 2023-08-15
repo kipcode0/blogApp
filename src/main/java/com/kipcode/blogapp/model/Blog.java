@@ -1,10 +1,12 @@
 package com.kipcode.blogapp.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -25,6 +27,9 @@ public class Blog {
     @Column(name = "content")
     private String content;
 
+    @ManyToOne(targetEntity = Writer.class, cascade = CascadeType.ALL)
+    @JoinColumn(name ="writer_detail_id", nullable = true)
+    private Writer writer;
     @Column(name = "date")
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date date;
@@ -34,11 +39,13 @@ public class Blog {
         //default constructor
     }
 
-    public Blog(String title, String genre, String content, Date date) {
+    public Blog(String title, String genre, String content, Writer writer, Date date) {
         this.title = title;
         this.genre = genre;
         this.content = content;
+        this.writer = writer;
         this.date = date;
+
     }
 
     public Long getId() {
@@ -68,6 +75,12 @@ public class Blog {
     public String getContent() {
         return content;
     }
+    public Writer getWriter() {
+        return writer;
+    }
+    public void setWriter(Writer writer) {
+        this.writer = writer;
+    }
 
     public void setContent(String content) {
         this.content = content;
@@ -89,6 +102,7 @@ public class Blog {
                 ", genre='" + genre + '\'' +
                 ", content='" + content + '\'' +
                 ", date=" + date +
+                ", writer =" + writer.getLastName() +
                 '}';
     }
 }

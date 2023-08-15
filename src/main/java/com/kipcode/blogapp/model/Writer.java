@@ -1,6 +1,8 @@
 package com.kipcode.blogapp.model;
 
-import net.minidev.json.annotate.JsonIgnore;
+//import net.minidev.json.annotate.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -12,7 +14,7 @@ import java.util.List;
 public class Writer {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private int Id;
+    private Long Id;
 
     @Column(name = "first_name",nullable = false)
     private String firstName;
@@ -26,28 +28,28 @@ public class Writer {
     @Column(name="email", nullable = false)
     private String email;
 
-    @OneToMany(targetEntity = Blog.class, cascade = CascadeType.ALL)
+    /*@OneToMany(targetEntity = Blog.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "writer_detail_id", referencedColumnName ="Id", nullable = true)
     @JsonIgnore
     private List<Blog> blogs;
-
+  */
     public Writer() {
     }
 
-    public Writer(int id, String firstName, String lastName, String password,String email, List<Blog> blogs) {
-        Id = id;
+    public Writer(String firstName, String lastName, String password,String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.blogs = blogs;
+
     }
 
-    public int getId() {
+
+    public Long getId() {
         return Id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         Id = id;
     }
 
@@ -75,13 +77,6 @@ public class Writer {
         this.email = email;
     }
 
-    public List<Blog> getBlogs() {
-        return blogs;
-    }
-
-    public void setBlogs(List<Blog> blogs) {
-        this.blogs = blogs;
-    }
 
     public String getPassword() {
         return password;
@@ -98,7 +93,6 @@ public class Writer {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", blogs=" + blogs +
                 '}';
     }
 }

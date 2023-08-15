@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 
-public interface WriterRepository extends JpaRepository<Writer, Integer> {
+public interface WriterRepository extends JpaRepository<Writer, Long> {
   //return blogs from a writer
    /*
    * @Query("SELECT m FROM Movie m WHERE m.title LIKE %:title%")

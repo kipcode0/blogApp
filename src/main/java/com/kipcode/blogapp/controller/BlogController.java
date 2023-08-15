@@ -33,8 +33,10 @@ public class BlogController {
     @PostMapping("/create-blog")
     public ResponseEntity<Blog> createBlog(@RequestBody Blog blog){
          //blogServiceImpl.saveBlog(blog);
+        //blog Repository to get author and genre
+         //blogRepository.
         try{
-            Blog newBlog = blogRepository.save(new Blog(blog.getTitle(),blog.getGenre(),blog.getContent(),blog.getDate()));
+            Blog newBlog = blogRepository.save(new Blog(blog.getTitle(),blog.getGenre(),blog.getContent(),blog.getWriter(),blog.getDate()));
             return new ResponseEntity<>(newBlog, HttpStatus.CREATED);
         }catch (Exception e){
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
