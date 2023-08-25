@@ -1,17 +1,22 @@
 package com.kipcode.blogapp.controller;
 
 import com.kipcode.blogapp.exceptions.ResourceNotFoundException;
-import com.kipcode.blogapp.model.Blog;
-import com.kipcode.blogapp.model.Writer;
+import com.kipcode.blogapp.model.*;
 import com.kipcode.blogapp.repository.BlogRepository;
 import com.kipcode.blogapp.repository.WriterRepository;
+import com.kipcode.blogapp.service.BlogUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping(path="/blogs")
 public class WriterController {
@@ -19,12 +24,34 @@ public class WriterController {
     private BlogRepository blogRepository;
     @Autowired
     private WriterRepository writerRepository;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    BlogUserDetailsService blogUserDetailsService;
 
+    @Autowired
+    JwtUtility jwtUtility;
     @GetMapping("/authors")
     public List<Writer> findWriters(){
         return writerRepository.findAll();
     }
 
+    @PostMapping("/authenticate")
+    public ResponseEntity<?> createAuthenticationToken(
+            @RequestBody AuthentificationRequest authentificationRequest) throws Exception{
+         try{
+             authenticationManager.authenticate(
+                     new UsernamePasswordAuthenticationToken(authentificationRequest.getPassword(), authentificationRequest.getPassword())
+             );
+         }catch (BadCredentialsException e){
+             throw new Exception("Incorrect username or password", e);
+
+         }
+         final UserDetails userDetails = blogUserDetailsService.loadUserByUsername(authentificationRequest.getUsername());
+         final String jwt = jwtUtility.generateToken(userDetails);
+
+         return ResponseEntity.ok(new AuthentificationResponse(jwt));
+    }
     @PostMapping("/signup")
     public ResponseEntity<Writer> createBlog(@RequestBody Writer writer){
         try{
