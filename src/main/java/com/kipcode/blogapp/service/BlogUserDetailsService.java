@@ -16,12 +16,8 @@ public class BlogUserDetailsService implements UserDetailsService {
     WriterRepository writerRepository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        try{
             Writer writer = writerRepository.findByEmail(username);
             return new User(writer.getEmail(),writer.getPassword(),new ArrayList<>());
-        }catch (UsernameNotFoundException e){
-            return (UserDetails) new UsernameNotFoundException(username);
-        }
-
     }
 }
+
