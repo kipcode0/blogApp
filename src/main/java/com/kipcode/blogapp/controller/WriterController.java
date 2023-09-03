@@ -25,6 +25,26 @@ public class WriterController {
         return writerRepository.findAll();
     }
 
+<<<<<<< Updated upstream
+=======
+    @PostMapping("/authenticate")
+    public ResponseEntity<?> createAuthenticationToken(
+            @RequestBody AuthentificationRequest authentificationRequest) throws Exception{
+         try{
+             authenticationManager.authenticate(
+                     new UsernamePasswordAuthenticationToken(authentificationRequest.getEmail(), authentificationRequest.getPassword())
+             );
+         }catch (Exception e){
+             throw new Exception("Incorrect username or password");
+
+         }
+         final  UserDetails userDetails = blogUserDetailsService.loadUserByUsername(authentificationRequest.getEmail());
+         final Writer writer = blogUserDetailsService.getUser(authentificationRequest.getEmail());
+         final String jwt = jwtUtil.generateToken(userDetails);
+
+         return ResponseEntity.ok(new AuthentificationResponse(jwt,writer.getFirstName(),writer.getLastName()));
+    }
+>>>>>>> Stashed changes
     @PostMapping("/signup")
     public ResponseEntity<Writer> createBlog(@RequestBody Writer writer){
         try{
