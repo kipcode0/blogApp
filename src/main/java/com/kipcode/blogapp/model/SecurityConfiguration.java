@@ -4,7 +4,10 @@ package com.kipcode.blogapp.model;
 import com.kipcode.blogapp.security.JwtFilter;
 import com.kipcode.blogapp.service.BlogUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+<<<<<<< HEAD
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+=======
+>>>>>>> af7126d676fac6342826907eb8ce4cb7259ff777
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,9 +20,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+<<<<<<< HEAD
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+=======
+>>>>>>> af7126d676fac6342826907eb8ce4cb7259ff777
 
 @EnableWebSecurity
 @Configuration
@@ -46,13 +52,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests().antMatchers("/authenticate")
+<<<<<<< HEAD
                 .permitAll().antMatchers("/blogs/create-blog").authenticated().
                  antMatchers("/signup").permitAll().
                  antMatchers("/blogs/**").permitAll().
+=======
+                .permitAll().antMatchers("/blogs/**").permitAll().
+>>>>>>> af7126d676fac6342826907eb8ce4cb7259ff777
                  anyRequest().authenticated()
                 .and().exceptionHandling().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
+<<<<<<< HEAD
     @Bean
     public FilterRegistrationBean corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -65,5 +76,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         bean.setOrder(0);
         return bean;
     }
+=======
+>>>>>>> af7126d676fac6342826907eb8ce4cb7259ff777
 
 }

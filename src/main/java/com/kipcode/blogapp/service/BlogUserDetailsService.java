@@ -19,9 +19,12 @@ public class BlogUserDetailsService implements UserDetailsService {
             Writer writer = writerRepository.findByEmail(username);
             return new User(writer.getEmail(),writer.getPassword(),new ArrayList<>());
     }
+<<<<<<< HEAD
 
     public Writer getUser(String email){
         return writerRepository.findByEmail(email);
     }
+=======
+>>>>>>> af7126d676fac6342826907eb8ce4cb7259ff777
 }
 
