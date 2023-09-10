@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
 public class WriterController {
     @Autowired
@@ -37,11 +37,6 @@ public class WriterController {
         return writerRepository.findAll();
     }
 
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> af7126d676fac6342826907eb8ce4cb7259ff777
     @PostMapping("/authenticate")
     public ResponseEntity<?> createAuthenticationToken(
             @RequestBody AuthentificationRequest authentificationRequest) throws Exception{
@@ -54,19 +49,15 @@ public class WriterController {
 
          }
          final  UserDetails userDetails = blogUserDetailsService.loadUserByUsername(authentificationRequest.getEmail());
-<<<<<<< HEAD
+
          final Writer writer = blogUserDetailsService.getUser(authentificationRequest.getEmail());
          final String jwt = jwtUtil.generateToken(userDetails);
 
          return ResponseEntity.ok(new AuthentificationResponse(jwt,writer.getFirstName(),writer.getLastName()));
     }
->>>>>>> Stashed changes
-=======
-         final String jwt = jwtUtil.generateToken(userDetails);
 
-         return ResponseEntity.ok(new AuthentificationResponse(jwt));
-    }
->>>>>>> af7126d676fac6342826907eb8ce4cb7259ff777
+
+
     @PostMapping("/signup")
     public ResponseEntity<Writer> createBlog(@RequestBody Writer writer){
         try{

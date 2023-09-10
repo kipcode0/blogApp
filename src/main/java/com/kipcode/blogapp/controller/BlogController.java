@@ -1,5 +1,6 @@
 package com.kipcode.blogapp.controller;
 import com.kipcode.blogapp.repository.BlogRepository;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.kipcode.blogapp.exceptions.BlogErrorResponse;
 import com.kipcode.blogapp.exceptions.ResourceNotFoundException;
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
 @RequestMapping(path="/blogs")
 public class BlogController {
@@ -35,9 +36,14 @@ public class BlogController {
          //blogServiceImpl.saveBlog(blog);
         //blog Repository to get author and genre
          //blogRepository.
+        HttpHeaders response = new HttpHeaders();
+        //response.set("Access-Control-Allow-Origin","'http://localhost:3000");
         try{
             Blog newBlog = blogRepository.save(new Blog(blog.getTitle(),blog.getGenre(),blog.getContent(),blog.getWriter(),blog.getDate()));
-            return new ResponseEntity<>(newBlog, HttpStatus.CREATED);
+            //return new ResponseEntity<>(newBlog, HttpStatus.CREATED);
+            return ResponseEntity.ok()
+                    .headers(response)
+                    .body(newBlog);
         }catch (Exception e){
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
