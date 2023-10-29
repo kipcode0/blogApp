@@ -1,4 +1,4 @@
-package com.kipcode.jpa.dto;
+package com.kipcode.dto;
 
 import com.kipcode.blogapp.model.Writer;
 

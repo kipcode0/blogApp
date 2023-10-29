@@ -8,9 +8,7 @@ import com.kipcode.blogapp.model.Blog;
 import com.kipcode.blogapp.model.Writer;
 import com.kipcode.blogapp.repository.WriterRepository;
 import com.kipcode.blogapp.service.BlogService;
-import com.kipcode.blogapp.service.BlogServiceImpl;
-import com.kipcode.jpa.dto.BlogRequest;
-import com.kipcode.jpa.dto.BlogResponse;
+import com.kipcode.dto.BlogResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
@@ -28,6 +25,7 @@ public class BlogController {
     private BlogService blogServiceImpl;
     @Autowired
     private WriterRepository writerRepository;
+
 
     @Autowired
     BlogRepository blogRepository;

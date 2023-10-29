@@ -23,16 +23,18 @@ public class Writer {
     private String lastName;
 
     @Column(name= "password", nullable = false)
+    @JsonIgnore
     private String password;
 
     @Column(name="email", nullable = false)
+    @JsonIgnore
     private String email;
 
-    /*@OneToMany(targetEntity = Blog.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Blog.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "writer_detail_id", referencedColumnName ="Id", nullable = true)
     @JsonIgnore
     private List<Blog> blogs;
-  */
+
     public Writer() {
     }
 

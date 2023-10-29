@@ -27,7 +27,7 @@ public class Blog {
     @Column(name = "content")
     private String content;
 
-    @ManyToOne(targetEntity = Writer.class, cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name ="writer_detail_id", nullable = true)
     private Writer writer;
     @Column(name = "date")

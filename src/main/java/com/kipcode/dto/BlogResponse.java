@@ -1,7 +1,12 @@
-package com.kipcode.jpa.dto;
+package com.kipcode.dto;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
-
+@Component
 public class BlogResponse {
     private String title;
     private String content;

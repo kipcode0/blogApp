@@ -3,13 +3,8 @@ package com.kipcode.blogapp.service;
 import com.kipcode.blogapp.exceptions.ResourceNotFoundException;
 import com.kipcode.blogapp.model.Blog;
 import com.kipcode.blogapp.repository.BlogRepository;
-import com.kipcode.jpa.dto.BlogResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 @Service
 public class BlogServiceImpl implements BlogService{

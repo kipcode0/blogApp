@@ -73,6 +73,8 @@ public class WriterController {
         Writer writer = writerRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Not found Blog with id = " + id));
         return new ResponseEntity<>(writer, HttpStatus.OK);
     }
+   
+
 
 
 }
