@@ -1,4 +1,4 @@
-package com.kipcode.blogapp.model;
+package com.kipcode.blogapp.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

@@ -1,4 +1,4 @@
-package com.kipcode.blogapp.model;
+package com.kipcode.blogapp.security;
 
 public class AuthentificationResponse {
     private final String jwt;
